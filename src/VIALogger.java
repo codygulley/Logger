@@ -7,13 +7,14 @@ import java.util.Calendar;
 /**
  * Created by codygulley on 1/29/16.
  */
-public class VIALogger extends LogWriter {
+public class VIALogger {
 
 
     public String logLevel = "INFO";
+    private LogWriter logWriter;
 
-    public VIALogger(File fileName) throws IOException {
-        super(fileName);
+    public VIALogger(String fileName) throws IOException {
+        logWriter = new LogWriter(fileName);
     }
 
     //Implement logging level logic based on value. DEBUG should contain all levels, info all but debug level, etc.
@@ -27,7 +28,7 @@ public class VIALogger extends LogWriter {
 
     public void setLogLevel(String level) {
         if (level.equals("DEBUG") || level.equals("WARN") || level.equals("ERROR") || level.equals("INFO")) {
-            output(level, "Changing log level from " + logLevel + " to " + level);
+            logWriter.output(level, "Changing log level from " + logLevel + " to " + level);
             logLevel = level;
         }
     }
@@ -35,16 +36,13 @@ public class VIALogger extends LogWriter {
     public void log(String level, String message) {
 //        System.out.print("CURRENT LOG LEVEL: " +logLevel+"\n");
         if (logLevel.equals("DEBUG") && (level.equals("DEBUG") || level.equals("INFO") || level.equals("WARN") || level.equals("ERROR"))) {
-            output(level, message);
+            logWriter.output(level, message);
         } else if (logLevel.equals(("INFO")) && level.equals("INFO") || level.equals("WARN") || level.equals("ERROR")) {
-            output(level, message);
+            logWriter.output(level, message);
         } else if (logLevel.equals("WARN") && (level.equals("WARN") || level.equals("ERROR"))) {
-            output(level, message);
+            logWriter.output(level, message);
         } else if (logLevel.equals("ERROR") && level.equals("ERROR")) {
-            output(level, message);
+            logWriter.output(level, message);
         }
     }
-
-
-
 }

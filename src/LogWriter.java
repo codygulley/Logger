@@ -13,14 +13,18 @@ public class LogWriter {
 
     private File file;
     private java.io.FileWriter fw;
-    private BufferedWriter bufferWritter = new BufferedWriter(fw);
+    private BufferedWriter bufferWriter;
 
     public LogWriter() throws IOException {
+        file = new File("log.log");
         fw = new FileWriter(file, true);
+        bufferWriter = new BufferedWriter(fw);
     }
 
-    public LogWriter(File fileName) throws IOException {
+    public LogWriter(String fileName) throws IOException {
         file = new File(fileName + ".log");
+        fw = new FileWriter(file, true);
+        bufferWriter = new BufferedWriter(fw);
 
         //if file doesn't exists, then create it
         if (!file.exists()) {
@@ -30,8 +34,8 @@ public class LogWriter {
         //true = append file
         System.out.println(file);
 
-        bufferWritter.write("\nINFO " + getDateTime() + " Initializing Logs!");
-        bufferWritter.flush();
+        bufferWriter.write("\nINFO " + getDateTime() + " Initializing Logs!");
+        bufferWriter.flush();
 
         fw = new FileWriter(file, true);
     }
@@ -40,9 +44,9 @@ public class LogWriter {
     public void output(String level, String message) {
         try {
             String source = new Exception().getStackTrace()[1].getClassName();
-            bufferWritter.write("\n" + level + " " + getDateTime() + " Class: " + source + " " + message + "\"");
+            bufferWriter.write("\n" + level + " " + getDateTime() + " Class: " + source + " " + message + "\"");
             System.out.println("VIALogger : " + level + " " + getDateTime() + " Class: " + source + " " + message + "\"");
-            bufferWritter.flush();
+            bufferWriter.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
