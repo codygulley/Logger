@@ -57,5 +57,4 @@ public class LogWriter {
         Calendar cal = Calendar.getInstance();
         return dateFormat.format(cal.getTime());
     }
-
 }

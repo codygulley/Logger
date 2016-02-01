@@ -9,10 +9,8 @@ import java.util.Calendar;
  */
 public class VIALogger {
 
-
-    public String logLevel = "INFO";
+    public String currentLoggingLevel = "INFO";
     private LogWriter logWriter;
-
     public VIALogger(String fileName) throws IOException {
         logWriter = new LogWriter(fileName);
     }
@@ -28,20 +26,20 @@ public class VIALogger {
 
     public void setLogLevel(String level) {
         if (level.equals("DEBUG") || level.equals("WARN") || level.equals("ERROR") || level.equals("INFO")) {
-            logWriter.output(level, "Changing log level from " + logLevel + " to " + level);
-            logLevel = level;
+            logWriter.output(level, "Changing log level from " + currentLoggingLevel + " to " + level);
+            currentLoggingLevel = level;
         }
     }
 
     public void log(String level, String message) {
 //        System.out.print("CURRENT LOG LEVEL: " +logLevel+"\n");
-        if (logLevel.equals("DEBUG") && (level.equals("DEBUG") || level.equals("INFO") || level.equals("WARN") || level.equals("ERROR"))) {
+        if (currentLoggingLevel.equals("DEBUG") && (level.equals("DEBUG") || level.equals("INFO") || level.equals("WARN") || level.equals("ERROR"))) {
             logWriter.output(level, message);
-        } else if (logLevel.equals(("INFO")) && level.equals("INFO") || level.equals("WARN") || level.equals("ERROR")) {
+        } else if (currentLoggingLevel.equals(("INFO")) && level.equals("INFO") || level.equals("WARN") || level.equals("ERROR")) {
             logWriter.output(level, message);
-        } else if (logLevel.equals("WARN") && (level.equals("WARN") || level.equals("ERROR"))) {
+        } else if (currentLoggingLevel.equals("WARN") && (level.equals("WARN") || level.equals("ERROR"))) {
             logWriter.output(level, message);
-        } else if (logLevel.equals("ERROR") && level.equals("ERROR")) {
+        } else if (currentLoggingLevel.equals("ERROR") && level.equals("ERROR")) {
             logWriter.output(level, message);
         }
     }
