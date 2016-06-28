@@ -15,12 +15,6 @@ public class LogWriter {
     private java.io.FileWriter fw;
     private BufferedWriter bufferWriter;
 
-    public LogWriter() throws IOException {
-        file = new File("log.log");
-        fw = new FileWriter(file, true);
-        bufferWriter = new BufferedWriter(fw);
-    }
-
     public LogWriter(String fileName) throws IOException {
         file = new File(fileName + ".log");
         fw = new FileWriter(file, true);
