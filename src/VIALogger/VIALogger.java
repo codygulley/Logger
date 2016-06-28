@@ -1,3 +1,5 @@
+package VIALogger;
+
 import java.io.IOException;
 
 /**
